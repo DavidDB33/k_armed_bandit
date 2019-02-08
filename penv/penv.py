@@ -8,25 +8,25 @@ STD = 3
 Info = namedtuple('Info', ['mean'])
 
 class Penv():
-    def __init__(self, num_bandits = 1, prob_bandits = None):
-        self.num_bandits = num_bandits
-        self.prob_bandits = self._init_calc_probs(num_bandits, prob_bandits)
+    def __init__(self, num_arms = 1, prob_arms = None):
+        self.num_arms = num_arms
+        self.prob_arms = self._init_calc_probs(num_arms, prob_arms)
 
-    def _init_calc_probs(self, num_bandits, prob_bandits):
+    def _init_calc_probs(self, num_arms, prob_arms):
         """Execute only at init
-        Initialize bandits means"""
-        if prob_bandits is None:
-            prob_bandits = norm.rvs(loc=MEAN, scale=STD, size=num_bandits)
+        Initialize arms means"""
+        if prob_arms is None:
+            prob_arms = norm.rvs(loc=MEAN, scale=STD, size=num_arms)
         else:
-            prob_bandits = [1.0]*num_bandits
-        return prob_bandits
+            prob_arms = [1.0]*num_arms
+        return prob_arms
 
     def info(self):
         """ Get info about env """
-        return [Info(mean=x) for x in self.prob_bandits]
+        return [Info(mean=x) for x in self.prob_arms]
         
         
     def step(self, action):
         """ Get next step of the environment """
-        return norm.rvs(loc=self.prob_bandits[action], scale=0.2, size=1)[0]
+        return norm.rvs(loc=self.prob_arms[action], scale=0.2, size=1)[0]
 
