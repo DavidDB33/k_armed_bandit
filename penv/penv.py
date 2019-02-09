@@ -1,4 +1,4 @@
-from scipy import stats
+import scipy
 from scipy.stats import norm
 from collections import namedtuple
 
@@ -25,8 +25,12 @@ class Penv():
         """ Get info about env """
         return [Info(mean=x) for x in self.prob_arms]
         
-        
     def step(self, action):
         """ Get next step of the environment """
         return norm.rvs(loc=self.prob_arms[action], scale=0.2, size=1)[0]
 
+    def reset(self, num_arms = 1, prob_arms = None):
+        self.__init__(num_arms = num_arms, prob_arms = prob_arms)
+
+    def render(self):
+        return None
