@@ -1,4 +1,4 @@
-__all__ = ['Penv']
+__all__ = ['KArmedBandit']
 
-from .penv import Penv
+from .penv import KArmedBandit
 
